@@ -1,6 +1,6 @@
 # Practicando Laravel
 
-Necesitaremos instalar PHP, Composer, Curl, MariaDB/MySQL, NodeJS (opcional).
+Necesitaremos instalar PHP, Composer, Curl, MariaDB/MySQL/SQLite, NodeJS + NPM.
 
 ## Instalaciones
 
@@ -9,7 +9,7 @@ Necesitaremos instalar PHP, Composer, Curl, MariaDB/MySQL, NodeJS (opcional).
 sudo apt install php-cli
 ```
 ```bash
-sudo apt install php-mysql php-xml php-mbstring
+sudo apt install php-mysql php-sqlite3 php-xml php-mbstring 
 ```
 
 ### MariaDB
@@ -24,7 +24,30 @@ sudo apt install curl
 
 ### NodeJS
 ```bash
-sudo apt install nodejs
+sudo apt install nodejs npm
+```
+
+Es posible que se instale una versión antigua de node y npm. Para actualizarlo a la última versión se puede hacer con n.
+
+Instalar n:
+```bash
+sudo npm install -g n
+```
+
+Cambiar la versión de node:
+```bash
+n latest
+```
+
+o
+
+```bash
+n <versión>
+```
+
+Comprobar versión:
+```bash
+node -v
 ```
 
 ### Composer
