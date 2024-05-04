@@ -53,11 +53,11 @@ Versión predeterminada: 2
 ```
 
 #### MySQL Workbench
-Para facilidad de consultar y modificar datos, nos conviene instalar un gestor de bases de patos. Tiraremos por el clásico [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). En caso de querer instalar también el server, podremos instalar [MySQL Server](https://dev.mysql.com/downloads/mysql/), pero esto no nos hará falta al usar Docker.
+Para facilidad de consultar y modificar datos, nos conviene instalar un gestor de bases de patos. Tiraremos por el clásico [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). En caso de querer instalar también el server (innecesario para Docker), podremos instalar [MySQL Server](https://dev.mysql.com/downloads/mysql/), pero esto no nos hará falta al usar Docker.
 
 
 
-## Instalación  y configuración del entorno de desarrollo
+
 
 Una vez lo tengamos así, lanzamos wsl, escribimos en powershell:
 
@@ -75,10 +75,59 @@ Por lo que podriamos inicar el proyecto en Desktop mísmamente. No obstante, en 
 cd ~
 ```
 
-Y creamos el proyecto:
+*\* Una vez que terminemos con el desarrollo, es recomendable apagar WSL, para que no consuma muchos recursos, una vez fuera de WSL (en poweshell de windows) escribimos `wsl --shutdown`.*
+
+
+
+## Creación del proyecto
+
+Una vez situados en ~ (directorio home), creamos el proyecto de Laravel:
 
 ```bash
 curl -s https://laravel.build/example-app | bash
 ```
 
 La primera vez nos va a decir que no encuentra la imagen de Sail y nos tardará bastante, pero las siguientes irá más rápido. En el caso de que pida contraseña para superuser la proporcionamos para que termine de configurar los privilegios. 
+<br>
+
+## Configuración del proyecto
+
+Al usar Docker, Laravel tiene una herramienta integrada llamada Sail, la cual nos permite interactuar con Docker de una manera muy sencilla.
+<br>
+Entonces la manera sería: entraríamos al directorio y lanzaríamos sail así: `./vendor/bin/sail up`. Esto nos crearía (en caso de no tener) y arracaría todos los contenedores necesarios para iniciar la aplicación (esto sería equivalente a un `php artisan serve`, pero usando docker). Es conveniente crear un alias para sail, para directamente poner `sail up`. Por tanto:
+
+```bash
+sudo nano ~/.bashrc
+```
+
+Bajamos abajo del todo y añadimos (en una nueva línea):
+
+```bash
+alias sail="./vendor/bin/sail"
+```
+
+Guardamos (ctrl + o y ctrl + x). También nos va a hacer falta refrescar ese archivo para que los cambios surtan efecto:
+
+```bash
+source ~/.bashrc
+```
+
+Podemos asegurarnos de que el alias se ha agregado correctamente con:
+
+```bash
+alias
+```
+
+Hecho esto, navegaríamos a la carpeta raíz del proyecto y lo levantaríamos con:
+
+```bash
+sail up
+```
+
+Para detener los contenedores (una vez finalicemos nuestras modificaciones y querramos chapar):
+
+```bash
+sail down
+```
+
+*\*RESUMEN: una vez dentro del WSL, entramos a nuestro proyecto, lo levantamos con `sail up`. Una vez hemos terminado la jornada de trabajo, tumbamos todos los contenedores con `sail down` o ctrl+c. Adicionalmente para que WSL no consuma recursos, en el powershell de windows (fuera de WSL) escribimos `wsl --shutdown`.*
